@@ -1,0 +1,44 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "Creation of SQS template"
+Parameters: 
+  AlarmEmail: 
+    Default: "Email1"
+    Description: "Email address"
+    Type: "String"
+Resources: 
+  MyQueue: 
+    Type: AWS::SQS::Queue
+    Properties: 
+      QueueName: "SampleQueue"
+  AlarmTopic: 
+    Type: AWS::SNS::Topic
+    Properties: 
+      Subscription: 
+        - 
+          Endpoint: 
+            Ref: "AlarmEmail"
+          Protocol: "email"
+  QueueDepthAlarm: 
+    Type: AWS::CloudWatch::Alarm
+    Properties: 
+      AlarmDescription: "Alarm if CPU Utilization is increased"
+      Namespace: "AWS/SQS"
+      MetricName: "Metricname1"
+      Dimensions: 
+        - 
+          Name: "QueueName"
+          Value: 
+            Fn::GetAtt: 
+              - "MyQueue"
+              - "QueueName"
+      Statistic: "Sum"
+      Period: "Period1"
+      EvaluationPeriods: "Evaluationperiod1"
+      Threshold: "Threshold1"
+      ComparisonOperator: "GreaterThanThreshold"
+      AlarmActions: 
+        - 
+          Ref: "AlarmTopic"
+      InsufficientDataActions: 
+        - 
+          Ref: "AlarmTopic"
