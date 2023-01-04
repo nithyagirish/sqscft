@@ -2,7 +2,7 @@ AWSTemplateFormatVersion: "2010-09-09"
 Description: "Creation of SQS template"
 Parameters: 
   AlarmEmail: 
-    Default: "Email1"
+    Default: "email1"
     Description: "Email address"
     Type: "String"
 Resources: 
@@ -23,7 +23,7 @@ Resources:
     Properties: 
       AlarmDescription: "Alarm if CPU Utilization is increased"
       Namespace: "AWS/SQS"
-      MetricName: "Metricname1"
+      MetricName: "metricname1"
       Dimensions: 
         - 
           Name: "QueueName"
@@ -32,9 +32,9 @@ Resources:
               - "MyQueue"
               - "QueueName"
       Statistic: "Sum"
-      Period: "Period1"
-      EvaluationPeriods: "Evaluationperiod1"
-      Threshold: "Threshold1"
+      Period: "period1"
+      EvaluationPeriods: "evaluationperiod1"
+      Threshold: "threshold1"
       ComparisonOperator: "GreaterThanThreshold"
       AlarmActions: 
         - 
